@@ -1,11 +1,19 @@
 package com.github.Ramble21.starboard;
 
 import com.github.Ramble21.Zbot;
+import com.github.Ramble21.command.Command;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+
 import java.sql.*;
 
 import static com.github.Ramble21.Zbot.*;
 
-public class StarboardCreate {
+public class StarboardCreate implements Command {
+
+    @Override
+    public void execute(SlashCommandInteractionEvent event) {
+
+    }
 
     public static void createStarboard(Starboard board) {
         String createStarboardQuery =

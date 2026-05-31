@@ -11,21 +11,19 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static com.github.Ramble21.Zbot.*;
-import static com.github.Ramble21.Zbot.local_user;
-import static com.github.Ramble21.Zbot.prod_password;
-import static com.github.Ramble21.Zbot.prod_user;
 
-public class StarboardDelete implements Command {
+public class SMMinReactions implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
 
     }
 
-    public static void deleteStarboard(long channelId, String starboardEmoji) {
-        String deleteStarboardQuery =
+    public static void updateMinReactions(String channelEmoji, long channelId, int newMinReactions) {
+        String updateEmojiQuery =
                 """
-                DELETE FROM starboards
+                UPDATE starboards
+                SET min_reactions = ?
                 WHERE channel_id = ? AND starboard_emoji = ?;
                 """;
 
@@ -33,15 +31,14 @@ public class StarboardDelete implements Command {
         String password = Zbot.isRunningLocally() ? local_password : prod_password;
         String user = Zbot.isRunningLocally() ? local_user : prod_user;
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            try (PreparedStatement stmt = conn.prepareStatement(deleteStarboardQuery)) {
-                stmt.setLong(1, channelId);
-                stmt.setString(2, starboardEmoji);
+            try (PreparedStatement stmt = conn.prepareStatement(updateEmojiQuery)) {
+                stmt.setLong(1, newMinReactions);
+                stmt.setLong(2, channelId);
+                stmt.setString(3, channelEmoji);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }

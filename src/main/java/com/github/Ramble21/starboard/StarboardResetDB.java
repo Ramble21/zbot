@@ -1,7 +1,10 @@
 package com.github.Ramble21.starboard;
 
 import com.github.Ramble21.Zbot;
+import com.github.Ramble21.command.Command;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -11,7 +14,12 @@ import static com.github.Ramble21.Zbot.local_user;
 import static com.github.Ramble21.Zbot.prod_password;
 import static com.github.Ramble21.Zbot.prod_user;
 
-public class StarboardResetDB {
+public class StarboardResetDB implements Command {
+
+    @Override
+    public void execute(SlashCommandInteractionEvent event) throws IOException {
+
+    }
 
     public static void resetDatabase() {
         String init =
