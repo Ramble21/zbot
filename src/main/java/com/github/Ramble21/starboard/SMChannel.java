@@ -2,6 +2,7 @@ package com.github.Ramble21.starboard;
 
 import com.github.Ramble21.Zbot;
 import com.github.Ramble21.command.Command;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -16,6 +17,11 @@ public class SMChannel implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
+        if (!Objects.requireNonNull(event.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
+            event.reply("Invalid permissions! You need *Manage Server* in order to use this command.").setEphemeral(true).queue();
+            return;
+        }
+
         long guildId = Objects.requireNonNull(event.getGuild()).getIdLong();
         GuildChannel oldChannel = Objects.requireNonNull(event.getOption("old_channel")).getAsChannel();
         GuildChannel newChannel = Objects.requireNonNull(event.getOption("new_channel")).getAsChannel();

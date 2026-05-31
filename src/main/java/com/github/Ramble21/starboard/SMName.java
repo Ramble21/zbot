@@ -2,6 +2,7 @@ package com.github.Ramble21.starboard;
 
 import com.github.Ramble21.Zbot;
 import com.github.Ramble21.command.Command;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -15,6 +16,11 @@ import static com.github.Ramble21.starboard.StarboardCreate.starboardExists;
 public class SMName implements Command {
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
+        if (!Objects.requireNonNull(event.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
+            event.reply("Invalid permissions! You need *Manage Server* in order to use this command.").setEphemeral(true).queue();
+            return;
+        }
+
         long guildId = Objects.requireNonNull(event.getGuild()).getIdLong();
         GuildChannel channel = Objects.requireNonNull(event.getOption("channel")).getAsChannel();
         String emoji = Objects.requireNonNull(event.getOption("emoji")).getAsString().trim();

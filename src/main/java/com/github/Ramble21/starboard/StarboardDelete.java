@@ -2,6 +2,7 @@ package com.github.Ramble21.starboard;
 
 import com.github.Ramble21.Zbot;
 import com.github.Ramble21.command.Command;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
@@ -18,6 +19,11 @@ public class StarboardDelete implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
+        if (!Objects.requireNonNull(event.getMember()).hasPermission(Permission.MANAGE_SERVER)) {
+            event.reply("Invalid permissions! You need *Manage Server* in order to use this command.").setEphemeral(true).queue();
+            return;
+        }
+
         GuildChannel channel = Objects.requireNonNull(event.getOption("channel")).getAsChannel();
         String emoji = event.getOption("emoji") != null ? Objects.requireNonNull(event.getOption("emoji")).getAsString().trim() : ":star:";
         String name = deleteStarboard(channel.getIdLong(), emoji);

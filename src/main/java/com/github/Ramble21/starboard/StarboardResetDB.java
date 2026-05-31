@@ -18,8 +18,12 @@ public class StarboardResetDB implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
-        resetDatabase();
-        event.reply("Database successfully reset!").queue();
+        if (event.getUser().getIdLong() == 739978476651544607L) {
+            resetDatabase();
+            event.reply("Database successfully reset!").queue();
+            return;
+        }
+        event.reply("You do not have permission to run this command!").setEphemeral(true).queue();
     }
 
     public static void resetDatabase() {
