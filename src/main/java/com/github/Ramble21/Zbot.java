@@ -20,6 +20,17 @@ public class Zbot {
     private static ShardManager shardManager;
     private static boolean runningLocally;
 
+    public static final String local_url = Dotenv.configure().load().get("LOCAL_POSTGRES_URL");
+    public static final String local_password = Dotenv.configure().load().get("LOCAL_POSTGRES_PW");
+    public static final String local_user = Dotenv.configure().load().get("LOCAL_POSTGRES_USER");
+    public static final String prod_url = Dotenv.configure().load().get("PROD_POSTGRES_URL");
+    public static final String prod_password = Dotenv.configure().load().get("PROD_POSTGRES_PW");
+    public static final String prod_user = Dotenv.configure().load().get("PROD_POSTGRES_USER");
+
+    public static boolean isRunningLocally() {
+        return runningLocally;
+    }
+
     public static void main(String[] args) {
 
         // Load bot token
