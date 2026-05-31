@@ -1,6 +1,7 @@
 package com.github.Ramble21;
 
 import com.github.Ramble21.command.CommandListener;
+import com.github.Ramble21.starboard.StarboardListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -43,7 +44,8 @@ public class Zbot {
 
         // Register listeners
         builder.addEventListeners(
-            new CommandListener()
+            new CommandListener(),
+            new StarboardListener()
         );
 
         shardManager = builder.build();
@@ -51,6 +53,14 @@ public class Zbot {
         // Declare global variables
         runningLocally = new File("local.flag").exists();
         System.out.println("Running locally: " + runningLocally);
+
+        // Test PostgreSQL driver
+        try {
+            Class.forName("org.postgresql.Driver");
+            System.out.println("PostgreSQL JDBC driver is PRESENT!");
+        } catch (ClassNotFoundException e) {
+            System.out.println("PostgreSQL JDBC driver NOT found!");
+        }
     }
 
     public static boolean validateToken(String token) {
