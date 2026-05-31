@@ -25,7 +25,7 @@ public class CommandListener extends ListenerAdapter {
                                 .addOptions(
                                         new OptionData(OptionType.CHANNEL, "channel", "Channel where messages are pinned", true),
                                         new OptionData(OptionType.INTEGER, "min_reactions", "Minimum reactions to pin a message", true),
-                                        new OptionData(OptionType.STRING, "emoji", "Emoji tracked for pinning messages", true),
+                                        new OptionData(OptionType.STRING, "emoji", "Emoji tracked for pinning messages (defaults to :star:)", false),
                                         new OptionData(OptionType.STRING, "name", "Name of the starboard (defaults to channel name)", false)
                                 ),
                         new SubcommandData("delete", "Delete a Starboard")
@@ -34,7 +34,8 @@ public class CommandListener extends ListenerAdapter {
                                         new OptionData(OptionType.STRING, "emoji", "Emoji this starboard tracks for pinning messages", true)
                                 ),
 
-                        new SubcommandData("reset_db", "Delete all Starboards and reset the database")
+                        new SubcommandData("reset_db", "Delete all Starboards and reset the database"),
+                        new SubcommandData("list", "Lists all registered Starboards in this server")
                 )
                 .addSubcommandGroups(
                         new SubcommandGroupData("modify", "Modify an existing Starboard")
@@ -48,14 +49,20 @@ public class CommandListener extends ListenerAdapter {
                                         new SubcommandData("channel", "Modify the channel used for pinning messages of an existing Starboard")
                                                 .addOptions(
                                                         new OptionData(OptionType.CHANNEL, "old_channel", "Channel where this starboard currently pins messages", true),
-                                                        new OptionData(OptionType.STRING, "new_channel", "New channel where this starboard will pin messages", true),
+                                                        new OptionData(OptionType.CHANNEL, "new_channel", "New channel where this starboard will pin messages", true),
                                                         new OptionData(OptionType.STRING, "emoji", "Emoji this starboard currently tracks for pinning messages", true)
                                                 ),
                                         new SubcommandData("min_reactions", "Modify the minimum reactions needed for an existing Starboard")
                                                 .addOptions(
                                                         new OptionData(OptionType.CHANNEL, "channel", "Channel where this starboard pins messages", true),
                                                         new OptionData(OptionType.STRING, "emoji", "Emoji this starboard currently tracks for pinning messages", true),
-                                                        new OptionData(OptionType.STRING, "min_reactions", "New minimum reactions to pin a message", true)
+                                                        new OptionData(OptionType.INTEGER, "min_reactions", "New minimum reactions to pin a message", true)
+                                                ),
+                                        new SubcommandData("name", "Modify the name of an existing Starboard")
+                                                .addOptions(
+                                                        new OptionData(OptionType.CHANNEL, "channel", "Channel where this starboard pins messages", true),
+                                                        new OptionData(OptionType.STRING, "emoji", "Emoji this starboard currently tracks for pinning messages", true),
+                                                        new OptionData(OptionType.STRING, "name", "New name for this starboard", true)
                                                 )
                                 )
                 )

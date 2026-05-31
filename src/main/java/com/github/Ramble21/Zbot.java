@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
+import java.awt.*;
 import java.io.File;
 
 public class Zbot {
@@ -26,6 +27,8 @@ public class Zbot {
     public static final String prod_url = Dotenv.configure().load().get("PROD_POSTGRES_URL");
     public static final String prod_password = Dotenv.configure().load().get("PROD_POSTGRES_PW");
     public static final String prod_user = Dotenv.configure().load().get("PROD_POSTGRES_USER");
+
+    public static final Color mainColor = new Color(195, 120, 255);
 
     public static boolean isRunningLocally() {
         return runningLocally;

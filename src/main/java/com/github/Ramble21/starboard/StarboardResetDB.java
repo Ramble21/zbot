@@ -18,7 +18,8 @@ public class StarboardResetDB implements Command {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) throws IOException {
-
+        resetDatabase();
+        event.reply("Database successfully reset!").queue();
     }
 
     public static void resetDatabase() {
@@ -61,6 +62,5 @@ public class StarboardResetDB implements Command {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Database successfully reset!");
     }
 }

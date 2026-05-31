@@ -38,6 +38,7 @@ class StarboardManager implements Command {
         subcommands.put("create", new StarboardCreate());
         subcommands.put("delete", new StarboardDelete());
         subcommands.put("reset_db", new StarboardResetDB());
+        subcommands.put("list", new StarboardList());
         subcommands.put("modify", new StarboardModifyManager());
     }
 
@@ -70,6 +71,7 @@ class StarboardModifyManager implements Command {
         subcommands.put("emoji", new SMEmoji());
         subcommands.put("channel", new SMChannel());
         subcommands.put("min_reactions", new SMMinReactions());
+        subcommands.put("name", new SMName());
     }
 
     @Override
