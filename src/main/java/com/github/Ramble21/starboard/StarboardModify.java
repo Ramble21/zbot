@@ -56,4 +56,27 @@ public class StarboardModify {
             throw new RuntimeException(e);
         }
     }
+
+    public static void updateMinReactions(String channelEmoji, long channelId, int newMinReactions) {
+        String updateEmojiQuery =
+                """
+                UPDATE starboards
+                SET min_reactions = ?
+                WHERE channel_id = ? AND starboard_emoji = ?;
+                """;
+
+        String url = Zbot.isRunningLocally() ? local_url : prod_url;
+        String password = Zbot.isRunningLocally() ? local_password : prod_password;
+        String user = Zbot.isRunningLocally() ? local_user : prod_user;
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            try (PreparedStatement stmt = conn.prepareStatement(updateEmojiQuery)) {
+                stmt.setLong(1, newMinReactions);
+                stmt.setLong(2, channelId);
+                stmt.setString(3, channelEmoji);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
