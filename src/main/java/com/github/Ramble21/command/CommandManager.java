@@ -72,6 +72,7 @@ class StarboardModifyManager implements Command {
         subcommands.put("channel", new SMChannel());
         subcommands.put("min_reactions", new SMMinReactions());
         subcommands.put("name", new SMName());
+        subcommands.put("ping_role", new SMPingRole());
     }
 
     @Override

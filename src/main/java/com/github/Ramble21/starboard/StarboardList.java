@@ -41,6 +41,7 @@ public class StarboardList implements Command {
                 .append("Starboard ID: **").append(first.starboardId).append("**\n")
                 .append("Channel: **#").append(Objects.requireNonNull(event.getGuild().getTextChannelById(first.channelId)).getName()).append("**\n")
                 .append("Minimum Reactions: **").append(first.minReactions).append("**\n")
+                .append("Ping Role: **").append(first.pingRole == null ? "N/A" : first.pingRole).append("**\n")
                 .append("Messages Pinned: **").append(getPinCount(first.starboardId)).append("**");
 
         for (int i = 1; i < starboards.size(); i++) {
@@ -51,6 +52,7 @@ public class StarboardList implements Command {
                     .append("Starboard ID: **").append(current.starboardId).append("**\n")
                     .append("Channel: **#").append(Objects.requireNonNull(event.getGuild().getTextChannelById(current.channelId)).getName()).append("**\n")
                     .append("Minimum Reactions: **").append(current.minReactions).append("**\n")
+                    .append("Ping Role: **").append(first.pingRole == null ? "N/A" : first.pingRole).append("**\n")
                     .append("Messages Pinned: **").append(getPinCount(current.starboardId)).append("**");
         }
 
@@ -105,7 +107,8 @@ public class StarboardList implements Command {
                             rs.getInt("starboard_id"),
                             rs.getInt("min_reactions"),
                             rs.getString("starboard_name"),
-                            rs.getString("starboard_emoji")
+                            rs.getString("starboard_emoji"),
+                            rs.getString("ping_role")
                     ));
                 }
                 return starboards;

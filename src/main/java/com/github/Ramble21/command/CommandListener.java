@@ -26,6 +26,7 @@ public class CommandListener extends ListenerAdapter {
                                         new OptionData(OptionType.CHANNEL, "channel", "Channel where messages are pinned", true),
                                         new OptionData(OptionType.INTEGER, "min_reactions", "Minimum reactions to pin a message", true),
                                         new OptionData(OptionType.STRING, "emoji", "Emoji tracked for pinning messages (defaults to :star:)", false),
+                                        new OptionData(OptionType.STRING, "ping_role", "Role to ping when pinning a new message (defaults to none)"),
                                         new OptionData(OptionType.STRING, "name", "Name of the starboard (defaults to channel name)", false)
                                 ),
                         new SubcommandData("delete", "Delete a Starboard")
@@ -63,6 +64,12 @@ public class CommandListener extends ListenerAdapter {
                                                         new OptionData(OptionType.CHANNEL, "channel", "Channel where this starboard pins messages", true),
                                                         new OptionData(OptionType.STRING, "emoji", "Emoji this starboard currently tracks for pinning messages", true),
                                                         new OptionData(OptionType.STRING, "name", "New name for this starboard", true)
+                                                ),
+                                        new SubcommandData("ping_role", "Modify the ping role of an existing Starboard")
+                                                .addOptions(
+                                                        new OptionData(OptionType.CHANNEL, "channel", "Channel where this starboard pins messages", true),
+                                                        new OptionData(OptionType.STRING, "emoji", "Emoji this starboard currently tracks for pinning messages", true),
+                                                        new OptionData(OptionType.STRING, "ping_role", "New ping role for this starboard (defaults to none)", false)
                                                 )
                                 )
                 )

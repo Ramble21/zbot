@@ -41,6 +41,7 @@ public class StarboardResetDB implements Command {
                     min_reactions INT NOT NULL,
                     starboard_name TEXT NOT NULL,
                     starboard_emoji TEXT NOT NULL,
+                    ping_role TEXT,
                     UNIQUE (channel_id, starboard_emoji)
                 );
                 

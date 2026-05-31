@@ -28,13 +28,14 @@ public class StarboardCreate implements Command {
         int minReactions = Objects.requireNonNull(event.getOption("min_reactions")).getAsInt();
         String emoji = event.getOption("emoji") != null ? Objects.requireNonNull(event.getOption("emoji")).getAsString().trim() : ":star:";
         String name = event.getOption("name") != null ? Objects.requireNonNull(event.getOption("name")).getAsString().trim() : channel.getName();
+        String pingRole = event.getOption("ping_role") != null ? Objects.requireNonNull(event.getOption("ping_role")).getAsString().trim() : null;
 
         if (!isValidEmoji(emoji, event.getChannel().asTextChannel())) {
             event.reply("Invalid emoji: \"" + emoji + "\"").queue();
             return;
         }
 
-        Starboard board = new Starboard(guildId, channel.getIdLong(), -1, minReactions, name, emoji);
+        Starboard board = new Starboard(guildId, channel.getIdLong(), -1, minReactions, name, emoji, pingRole);
         if (starboardExists(guildId, channel.getIdLong(), emoji)) {
             event.reply("A starboard with that emoji already exists in that channel! Use `/starboard modify` to modify it or `/starboard delete` to delete it.").queue();
             return;
@@ -93,8 +94,8 @@ public class StarboardCreate implements Command {
     public static void createStarboard(Starboard board) {
         String createStarboardQuery =
                 """
-                INSERT INTO starboards (guild_id, channel_id, min_reactions, starboard_name, starboard_emoji)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO starboards (guild_id, channel_id, min_reactions, starboard_name, starboard_emoji, ping_role)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """;
 
         String url = Zbot.isRunningLocally() ? local_url : prod_url;
@@ -107,6 +108,7 @@ public class StarboardCreate implements Command {
                 stmt.setInt(3, board.minReactions);
                 stmt.setString(4, board.starboardName);
                 stmt.setString(5, board.starboardEmoji);
+                stmt.setString(6, board.pingRole);
                 stmt.executeUpdate();
 
                 ResultSet keys = stmt.getGeneratedKeys();
