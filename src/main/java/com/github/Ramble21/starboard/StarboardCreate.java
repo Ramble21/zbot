@@ -10,8 +10,8 @@ public class StarboardCreate {
     public static void createStarboard(Starboard board) {
         String createStarboardQuery =
                 """
-                INSERT INTO starboards (starboard_id, guild_id, channel_id, starboard_name, starboard_emoji)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO starboards (starboard_id, guild_id, channel_id, min_reactions, starboard_name, starboard_emoji)
+                VALUES (?, ?, ?, ?, ?, ?)
                 ON CONFLICT (starboard_id) DO NOTHING;
                 """;
 
@@ -23,6 +23,7 @@ public class StarboardCreate {
                 insertLevelStmt.setLong(1, board.starboardId);
                 insertLevelStmt.setLong(2, board.guildId);
                 insertLevelStmt.setLong(3, board.channelId);
+                insertLevelStmt.setInt(4, board.minReactions);
                 insertLevelStmt.setString(4, board.starboardName);
                 insertLevelStmt.setString(5, board.starboardEmoji);
                 insertLevelStmt.executeUpdate();

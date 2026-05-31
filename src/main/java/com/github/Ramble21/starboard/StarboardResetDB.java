@@ -25,6 +25,7 @@ public class StarboardResetDB {
                     starboard_id SERIAL PRIMARY KEY,
                     guild_id     BIGINT NOT NULL,
                     channel_id   BIGINT NOT NULL,
+                    min_reactions INT NOT NULL,
                     starboard_name TEXT NOT NULL,
                     starboard_emoji TEXT NOT NULL,
                     UNIQUE (channel_id, starboard_emoji)
